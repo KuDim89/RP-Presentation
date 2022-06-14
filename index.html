@@ -1,0 +1,462 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" lang="EN">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Functional Reactive Programming</title>
+
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/black.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section class="slide1" data-background-image="dist/img/9.jpg" data-background-opacity="0.2">
+            <div class="container">
+                <div class="title-wrapper">
+                    <h3 class="title">Reactive Programming</h3>
+                    <div class="libraryLogos">
+                        <img src="./dist/img/react.svg" alt="react">
+                        <span>+</span>
+                        <img src="./dist/img/rxjs.svg" alt="rx">
+                    </div>
+                </div>
+                <div class="img-wrapper">
+                    <img class="logo" src="dist/img/logo.svg" alt="logo">
+                </div>
+            </div>
+            <p class="author">Dmytro Kukharuk</p>
+            <aside class="notes">
+                <p>
+                    Всім привіт, мене звати Дмитро. Працюю я в Avenga вже 3 роки. Сьогодні розкажу вам трохи про реактивне
+                    програмування та мій невеличкий досвід з ним, про переваги та недоліки, та як побудувати власний
+                    застосунок використовуючи React.js та бібліотеку для реактивного програмування RxJS.
+                </p>
+            </aside>
+        </section>
+        <section class="slide2">
+            <h3>What is Reactive Programming?</h3>
+            <p class="fragment text">
+                <span>Reactive programming</span> is a declarative programming paradigm concerned with asynchronous data
+                streams and the propagation of change.
+            </p>
+            <div class="img-container">
+                <div class="img-wrapper">
+                    <img class="fragment" src="./dist/img/11.png" alt="code">
+                    <img class="fragment" src="./dist/img/22.png" alt="code">
+                </div>
+                <div class="img-wrapper">
+                    <img class="fragment" src="./dist/img/excel.gif" alt="code" style="width: 530px">
+                    <img class="fragment" src="./dist/img/55.png" alt="code" style="height:157px; width: 530px">
+                </div>
+            </div>
+            <aside class="notes">
+                <p>
+                    Отже, Що ж таке реактивне програмування?
+                </p>
+                <p>
+                    <strong>Реактивне програмування</strong> — це парадигма декларативного програмування, побудована
+                    на асинхронних потоках даних і розповсюдженні змін.
+                </p>
+                <p>
+                    Тобто якщо ми до змінної <strong>A</strong> додамо <strong>В</strong>, а результат запишемо в змінну
+                    <strong>C</strong>, а потім змінимо <strong>A</strong> то результат суми двох чисел в змінні
+                    <strong>C</strong> залишиться без змін, адже вже все пораховано і змінна <strong>C</strong> не знає
+                    що <strong>А</strong> змінилось - так працює звичайна консоль на панелі розробника і це парадигма
+                    імперативного програмування коли наш код виконується крок за кроком.
+                </p>
+                <p>
+                    Нам потрібна дещо інше, подивімось як працює парадигма декларативного програмування на прикладі
+                    звичайної таблиці Microsoft Excel. Це один з самих поширених прикладів за допомогою якого можна
+                    доступно пояснити як вона працює.
+                </p>
+                <p>
+                    У нас є 2 потоки <strong>A</strong> та <strong>B</strong> і є pure function результат роботи якої
+                    зберігається в комірці <strong>C</strong> тобто зараз ми розуміємо що наш Excel для своєї роботи
+                    використовує Функціональне Реактивне програмування.
+                </p>
+                <p>
+                    Функціональна частина допомагає нам писати більш передбачуваний код та мінімізувати кількість помилок
+                    в ньому. Реактивна ж відповідає за написання отзивчивих інтерфейсфів для користувача, які автоматично
+                    оновлюються, коли відповідні дані змінюються десь у нашому застосунку. Потрібний деякий час, щоб
+                    звикнути до цього, оскільки концепція докорінно відрізняється від того, до чого звикла більшість людей.
+                </p>
+                <p>
+                    Також мушу зазначити що поєднання цих підходів це один із самих актуальних трендів сучасності.
+                </p>
+                <p>
+                    Тепер ми розуміємо що для того, щоб дотримуватись правил реактивного програмування нам потрібно щоб
+                    наші данні були завжди актуальними.
+                </p>
+            </aside>
+        </section>
+        <section class="slide3">
+            <section class="slide3-1">
+                <h3>Who invented RX?</h3>
+                <img class="fragment" src="./dist/img/erik-meijer.jpg" alt="Erik Meijer">
+                <aside class="notes">
+                    <p>Розробником програмної моделі Reactive Extensions є голландський вчений Ерік Майєр - визнаний
+                        дослідник і розробник програмного забезпечення в Microsoft. У 2010 р. він запропонував та
+                        імплементував цю модель як набір бібліотек Rx.Net. Вихідний код був розміщений на сайті
+                        відкритих проєктів CodePlex компанії Microsoft з метою популяризації та збільшення прихильників
+                        даної моделі.
+                    </p>
+                    <p>
+                        Згодом Rx з'являється і в інших мовах програмування:
+                    </p>
+                </aside>
+            </section>
+            <section class="slide3-2">
+                <h4>Languages</h4>
+                <ul class="language">
+                    <li>JavaScript: RxJS</li>
+                    <li>Java: RxJava</li>
+                    <li>C#: Rx.NET</li>
+                    <li>Scala: RxScala</li>
+                    <li>C++: RxCpp</li>
+                    <li>Ruby: Rx.rb</li>
+                    <li>Python: RxPY</li>
+                    <li>Swift: RxSwift</li>
+                    <li><a href="https://reactivex.io/languages.html">Other...</a></li>
+                </ul>
+                <aside class="notes">
+                    <p>
+                        На сьогоднышный день близько 18 мов програмування підтримує реактивне програмування.
+                    </p>
+                </aside>
+            </section>
+            <section class="slide3-3">
+                <h4>RX statistics</h4>
+                <div class="">
+                    <div class="container fragment">
+                        <img src="./dist/img/country-1.2.png" alt="statistic first">
+                        <img src="./dist/img/country-2.2.png" alt="statistic second">
+                    </div>
+                    <img class="company fragment" src="./dist/img/use-company.png" alt="use company">
+                </div>
+                <aside class="notes">
+                    <p>
+                        На цьому слайді ми можемо побачити у відсотковому співвідношенні розробники яких країн
+                        найбільше використовують бібліотеки RX в своїх проєктах. Приємно бачити що Україна займає 3 місце.
+                    </p>
+                    <p>
+                        Тут ми бачимо які компанії вже спробували переваги реактивного програмування на своїх проєктах.
+                    </p>
+                </aside>
+            </section>
+        </section>
+        <section class="slide4">
+            <h3>The Reactive Manifesto</h3>
+            <img src="./dist/img/reactive-traits.svg" alt="reactive-traits">
+            <aside class="notes">
+                <p>
+                    Більш розгорнуто про цю методику програмування можна почитати в Реактивному маніфесті, який нам
+                    говорить про те що реактивні системи представляють архітектурний стиль для створення швидко
+                    реагуючих, розподілених систем, які характеризується такими властивостями:
+                </p>
+                <ul>
+                    <li><strong>Responsive</strong> - така система повинна обробляти запити в розумний час;</li>
+                    <li><strong>Resilient</strong> - вона має бути стійкою, тобто повинна реагувати на збої та помилки й
+                        належним чином з ними боротися;</li>
+                    <li><strong>Elastic</strong> - Гнучка що говорить про те що вона має реагувати на різні
+                        навантаження, а отже масштабуватися в гору і в низ і могти справлятися з різними навантаженнями
+                        з мінімальною затратою ресурсів;</li>
+                    <li><strong>Mesages driven</strong> і взаємодіяти за допомогою асинхронної передачі повідомлень;</li>
+                </ul>
+                <p>А також ці системи мають легко підтримуватись і розширятись.</p>
+            </aside>
+        </section>
+        <section class="slide5">
+            <h3> The best JavaScript Reactive Programming Libraries</h3>
+            <div class="cards">
+                <div class="cards-item">
+                        <div class="logo-img">
+                            <img src="./dist/img/rxjs.svg" alt="rxjs">
+                        </div>
+                        <div class="logo-name">rxjs</div>
+                </div>
+                <div class="cards-item">
+                    <div class="logo-img">
+                        <img src="./dist/img/solid-js.svg" alt="solid-js">
+                    </div>
+                    <div class="logo-name">solid-js</div>
+                </div>
+                <div class="cards-item">
+                    <div class="logo-img">
+                        <img src="./dist/img/mobx-keystone.png" alt="mobx-keystone">
+                    </div>
+                    <div class="logo-name">mobx-keystone</div>
+                </div>
+                <div class="cards-item">
+                    <div class="logo-img">
+                        <img src="./dist/img/kefir.svg" alt="kefir">
+                    </div>
+                    <div class="logo-name">kefir</div>
+                </div>
+                <div class="cards-item">
+                    <div class="logo-img">
+                        <img src="./dist/img/baconjs.png" alt="baconjs">
+                    </div>
+                    <div class="logo-name">baconjs</div>
+                </div>
+                <div class="cards-item">
+                    <div class="logo-img">
+                        <div class="img">flyd</div>
+                    </div>
+                    <div class="logo-name">flyd</div>
+                </div>
+                <div class="cards-item">
+                    <div class="logo-img">
+                        <div class="img">s-js</div>
+                    </div>
+                    <div class="logo-name">s-js</div>
+                </div>
+                <div class="cards-item">
+                    <div class="logo-img">
+                        <div class="img">xstr</div>
+                    </div>
+                    <div class="logo-name">xstream</div>
+                </div>
+                <div class="cards-item">
+                    <div class="logo-img">
+                        <div class="img">lem</div>
+                    </div>
+                    <div class="logo-name">lemonadiejs</div>
+                </div>
+                <div class="cards-item">
+                    <div class="logo-img">
+                        <img src="./dist/img/refract-rxjs.png" alt="refract-rxjs">
+                    </div>
+                    <div class="logo-name">refract-rxjs</div>
+                </div>
+                <div class="cards-item">
+                    <div class="logo-img">
+                        <div class="img">mos</div>
+                    </div>
+                    <div class="logo-name">most</div>
+                </div>
+                <div class="cards-item">
+                    <div class="logo-img">
+                        <div class="img">...</div>
+                    </div>
+                    <div class="logo-name">...</div>
+                </div>
+            </div>
+            <aside class="notes">
+                <p>
+                    Icнує велика кількість бібліотек для реактивного програмування. Зараз ви бачите JS бібліотеки які
+                    мають найбільший попит, та займають передові позиції на Git Hub.
+                </p>
+            </aside>
+        </section>
+        <section class="slide6">
+            <h3>RxJS statistics</h3>
+           <img class="fragment" src="dist/img/user-rating.png" alt="user rating">
+           <img class="fragment" src="dist/img/popularity.png" alt="popularity">
+           <img class="fragment" src="dist/img/versions.png" alt="versions">
+            <aside class="notes">
+                <p>
+                    Для свого проєкту я обрав бібліотеку RxJS через те що вона виявилась найпопулярнішою серед інших JS
+                    бібліотек.
+                </p>
+                <p>
+                    Ось невеличка статистика щодо цієї бібліотеки:
+                </p>
+                <ul>
+                    <li>Рейтинг 4.7 з 5</li>
+                    <li>Найбільше людей поставили 5 зірочок що говорить про хорошу довіру цій бібліотеці</li>
+                    <li>Хороша документація</li>
+                    <li>36 мільйонів людей звантажили RxJS в травні</li>
+                    <li>На Git Hub 27 тисяч зірочок і тенденція рухається у бік зростання</li>
+                    <li>Останній комміт було зроблено 3 міс тому що говорить що бібліотека розвивається</li>
+                </ul>
+            </aside>
+        </section>
+        <section>
+            <!--Todo should continue create slides about working with RxJS and about own project base on RxJS-->
+            <h1>About RxJS</h1>
+            <aside class="notes">
+                <p>Зараз розберімось більш детально як працює бібліотека RxJS</p>
+            </aside>
+        </section>
+        <section class="slide">
+            <section>
+                <h3>What is Reactive UI ?</h3>
+                <pre>
+                    <code data-trim >
+                        let carName = 'Opel';
+
+                        const App = () => {
+                            <div>{ carName }</div>
+                        }
+                    </code>
+                </pre>
+                <pre class="fragment">
+                    <code data-trim >
+                        carName = 'Audi';
+                    </code>
+                </pre>
+                <aside class="notes">
+                    <p>
+                        Давайте подивимось на наступний фрагмент коду. Це простенький React компонент який за допомогою
+                        магії React рендерить нам назву авто. Але що буде якщо ми змінимо змінну <strong>carName</strong>
+                        з Opel на Audi. То наш компонент він не розумний і він відрендерив назву авто Opel і не буде
+                        рендерити більше нічого.
+                    </p>
+                </aside>
+            </section>
+            <section class="slide">
+                <h4>Observer Pattern</h4>
+                <pre class="fragment">
+                    <code data-trim >
+                        class Observable {
+                            constructor() = {
+                                this.observers = [];
+                            }
+
+                            subscribe(func) {
+                                this.observers.push(func);
+                            }
+
+                            unsubscribe(func) {
+                                this.observers = this.observers.filter(observer => !== func);
+                            }
+
+                            notify(data) {
+                                this.observers.forEach(observer => observer(data));
+                            }
+                        }
+                    </code>
+                </pre>
+                <div class="fragment">
+                    <img src="./dist/img/99.png" alt="diagram">
+                </div>
+                <aside class="notes">
+                    <p>
+                        Для того, щоб наш компонент розумів що відбулись якісь зміни в змінній <strong>carName</strong>
+                        нам потрібно застосувати такий патерн програмування як Observer або Спостерігач.
+                    </p>
+                    <p>
+                        Тут можна побачити як він виглядає реалізований за допомогою синтаксису ES6.
+                    </p>
+                    <p>
+                        <strong>Спостерігач</strong> це поведінковий патерн програмування для створення механізму
+                        підписки, який дозволяє, щоб одні об'єкти слідкували за змінами інших об'єктів.
+                    </p>
+                    <ol>
+                        <li>Відповідно в спостерігача є список всіх підписників.</li>
+                        <li>Методи за допомогою яких можна змінювати властивості підписників</li>
+                        <li>Та методи для оповіщення, що властивості змінились і на це потрібно якось реагувати.</li>
+                    </ol>
+                    <p>
+                        Прикладом роботи Спостерігача є підписка у соц мережах на якийсь ресурс. Тут на діаграмі все
+                        видно краще, як працює цей патерн.
+                    </p>
+                </aside>
+            </section>
+            <section>
+                <h4>Reactive UI</h4>
+                <pre class="fragment">
+                    <code data-trim >
+                        let carName = observable('Opel');
+
+                        const App = () => observable(() => {
+                            <div>{ carName }</div>
+                        )
+
+                        carName = 'Audi';
+                    </code>
+                </pre>
+                <aside class="notes">
+                    <p>
+                        Після того як ми реалізуємо цей патерн. Нам потрібно буде розуміти що тепер у нас не буде
+                        нерозумних компонентів. З не розумних ми зробимо розумні. Тепер наша компонента не буде сидіти
+                        й чекати пропси які прийдуть їй з батьківського компонента, а вона їх тільки відрендерить. Вона
+                        буде розумною і зможе підписуватись на зміни. І отримувати їх. Тобто перш за все вона буде
+                        ініціювати на що вона хоче підписатись, щоб отримувати якусь інформацію. Знаючи це все ми можемо
+                        використати патерн Спостерігач у нашій React компоненті, і вона виглядатиме ось так.
+                    </p>
+                    <p>
+                        Що ми зробили? Ми навішали обгортку над змінною <strong>carName</strong>, і коли ми змінили
+                        значення цієї змінної наш компонент зрозумів що воно змінилась, і перерендерив компонент, з
+                        новими актуальними даними. Я думаю теоретично з цим більш менш все зрозуміло, потім я ще покажу
+                        на прикладі свого невеличкого проєкту, який я створив використовуючи реактивне програмування.
+                    </p>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <h3>Advantages</h3>
+            <ul>
+                <li class="fragment">Cleaner code, more concise;</li>
+                <li class="fragment">Easier to read (once you get the hang of it);</li>
+                <li class="fragment">Easier to scale;</li>
+                <li class="fragment">Better error handling;</li>
+                <li class="fragment">Refuse state managements;</li>
+                <li class="fragment">Weak connection</li>
+            </ul>
+            <aside class="notes">
+                <p>
+                    А зараз поговорім про переваги які є у реактивного програмування:
+                </p>
+                <ol>
+                    <li>Код стає більш чистіший та лаконічніший;</li>
+                    <li>Його легше читати;</li>
+                    <li>Такі застосунки краще працюють під навантаженням;</li>
+                    <li>Покращена обробка помилок;</li>
+                    <li>A також можете відмовитись від стейт менеджерів на зразок Redux і зберігати данні в сервісах.
+                    <li>Слабка зв'язаність нам дає Inversion of control. Тобто це можна сказати як не викликайте нас ми
+                    підпишемось і викличемо вас самі коли нам буде це необхідно.</li>
+                </ol>
+            </aside>
+        </section>
+        <section>
+            <h3>Disadvantages</h3>
+            <ul>
+                <li class="fragment">Can become more memory intensive in some cases;</li>
+                <li class="fragment">Somewhat steep learning curve;</li>
+            </ul>
+            <aside class="notes">
+                <p>
+                    Звичайно якщо є переваги, мусять бути й недоліки, бо немає нічого ідеального.
+                </p>
+                <ol>
+                    <li>В деяких випадках може потребувати більше пам'яті, тому що тут ми працюємо з асинхронними
+                        потоками, а їх може бути багато і щоб опрацювати потрібна пам'ять.</li>
+                    <li>Досить важко навчитись через брак освітніх матеріалів, особливо що стосується js</li>
+                </ol>
+            </aside>
+        </section>
+        <section>
+            <ul>
+                <li><a href="https://www.reactivemanifesto.org/">The Reactive Manifesto</a></li>
+                <li><a href="https://openbase.com/categories/js/best-javascript-reactive-programming-libraries">
+                    10 Best JavaScript Reactive Programming Libraries
+                </a></li>
+                <li></li>
+            </ul>
+        </section>
+    </div>
+</div>
+
+<script src="dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script>
+  // More info about initialization & config:
+  // - https://revealjs.com/initialization/
+  // - https://revealjs.com/config/
+  Reveal.initialize({
+    hash: true,
+    // Learn about plugins: https://revealjs.com/plugins/
+    plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+  });
+</script>
+</body>
+</html>
